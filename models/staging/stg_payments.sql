@@ -3,7 +3,9 @@ select
     orderid as order_id,
     paymentmethod as payment_method,
     status,
-    amount / 100 as amount,
+    {{ cents_to_dollars('amount') }},
     created as created_at
 
-from raw.stripe.payment 
+from raw.stripe.payment
+
+{{ limit_data_in_dev.sql }}
